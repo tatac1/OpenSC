@@ -15,7 +15,7 @@ addons:
     - xsltproc
   coverity_scan:
     project:
-      name: "mouse07410/OpenSC"
+      name: "mouse07410OpenSC"
       description: "Build submitted via Travis CI"
     notification_email: mouse07410@hotmail.com
     build_command:   "make -j 4"
