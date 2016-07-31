@@ -15,9 +15,9 @@ addons:
     - xsltproc
   coverity_scan:
     project:
-      name: "OpenSC/OpenSC"
+      name: "mouse07410/OpenSC"
       description: "Build submitted via Travis CI"
-    notification_email: viktor.tarasov@gmail.com
+    notification_email: uri@mit.edu
     build_command:   "make -j 4"
     branch_pattern: master
 
@@ -25,7 +25,7 @@ env:
   global:
     # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
     #   via the "travis encrypt" command using the project repo's public key
-    - secure: "UkHn7wy4im8V1nebCWbAetnDSOLRUbOlF6++ovk/7Bnso1/lnhXHelyzgRxfD/oI68wm9nnRV+RQEZ9+72Ug1CyvHxyyxxkwal/tPeHH4B/L+aGdPi0id+5OZSKIm77VP3m5s102sJMJgH7DFd03+nUd0K26p0tk8ad4j1geV4c="
+    # - secure: "UkHn7wy4im8V1nebCWbAetnDSOLRUbOlF6++ovk/7Bnso1/lnhXHelyzgRxfD/oI68wm9nnRV+RQEZ9+72Ug1CyvHxyyxxkwal/tPeHH4B/L+aGdPi0id+5OZSKIm77VP3m5s102sJMJgH7DFd03+nUd0K26p0tk8ad4j1geV4c="
 
 matrix:
   include:
