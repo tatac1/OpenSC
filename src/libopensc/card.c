@@ -403,14 +403,12 @@ int sc_lock(sc_card_t *card)
 	if (card->lock_count == 0) {
 		if (card->reader->ops->lock != NULL) {
 			r = card->reader->ops->lock(card->reader);
-			if (r == SC_ERROR_CARD_RESET || r == SC_ERROR_READER_REATTACHED) {
+			while (r == SC_ERROR_CARD_RESET || r == SC_ERROR_READER_REATTACHED) {
 				/* invalidate cache */
 				memset(&card->cache, 0, sizeof(card->cache));
 				card->cache.valid = 0;
-#ifdef ENABLE_SM
-				if (card->sm_ctx.ops.open)
-					card->sm_ctx.ops.open(card);
-#endif
+				if (was_reset++ > 4) /* TODO retry a few times */
+					break;
 				r = card->reader->ops->lock(card->reader);
 			}
 			if (r == 0)
@@ -421,13 +419,21 @@ int sc_lock(sc_card_t *card)
 	}
 	if (r == 0)
 		card->lock_count++;
+
+	if (r == 0 && was_reset > 0) {
+#ifdef ENABLE_SM
+		if (card->sm_ctx.ops.open)
+			card->sm_ctx.ops.open(card);
+#endif
+	}
+
 	r2 = sc_mutex_unlock(card->ctx, card->mutex);
 	if (r2 != SC_SUCCESS) {
-		sc_log(card->ctx, "unable to release lock");
+		sc_log(card->ctx, "unable to release card->mutex lock");
 		r = r != SC_SUCCESS ? r : r2;
 	}
 
-	return r;
+	LOG_FUNC_RETURN(card->ctx, r);
 }
 
 int sc_unlock(sc_card_t *card)
