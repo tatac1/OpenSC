@@ -255,8 +255,6 @@ int sc_connect_card(sc_reader_t *reader, sc_card_t **card_out)
 				sc_log(ctx, "driver '%s' init() failed: %s", card->driver->name, sc_strerror(r));
 				goto err;
 			}
-			if (r == 0)
-				reader_lock_obtained = 1;
 		}
 	}
 	else {
@@ -411,8 +409,6 @@ int sc_lock(sc_card_t *card)
 					break;
 				r = card->reader->ops->lock(card->reader);
 			}
-			if (r == 0)
-				reader_lock_obtained = 1;
 		}
 		if (r == 0)
 			card->cache.valid = 1;
@@ -480,10 +476,6 @@ int sc_list_files(sc_card_t *card, u8 *buf, size_t buflen)
 	if (card->ops->list_files == NULL)
 		LOG_FUNC_RETURN(card->ctx, SC_ERROR_NOT_SUPPORTED);
 	r = card->ops->list_files(card, buf, buflen);
-
-	/* give card driver a chance to do something when reader lock first obtained */
-	if (r == 0 && reader_lock_obtained == 1  && card->ops->card_reader_lock_obtained)
-		r = card->ops->card_reader_lock_obtained(card, was_reset);
 
 	LOG_FUNC_RETURN(card->ctx, r);
 }
@@ -745,10 +737,6 @@ int sc_select_file(sc_card_t *card, const sc_path_t *in_path,  sc_file_t **file)
 			 * lazy.  */
 			r = SC_ERROR_INVALID_DATA;
 	}
-
-	/* give card driver a chance to do something when reader lock first obtained */
-	if (r == 0 && reader_lock_obtained == 1  && card->ops->card_reader_lock_obtained)
-		r = card->ops->card_reader_lock_obtained(card, was_reset);
 
 	LOG_FUNC_RETURN(card->ctx, r);
 }
