@@ -1224,8 +1224,7 @@ static struct sc_card_operations iso_ops = {
 	iso7816_get_data,
 	NULL,			/* put_data */
 	NULL,			/* delete_record */
-	NULL,			/* read_public_key */
-	NULL			/* card_was_reset */
+	NULL			/* read_public_key */
 };
 
 static struct sc_card_driver iso_driver = {
