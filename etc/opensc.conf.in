@@ -12,14 +12,14 @@ app default {
 	# A greater value means more debug info.
 	# Default: 0
 	#
-	#debug = 3;
+	debug = 2;
 
 	# The file to which debug output will be written
 	#
 	# Special values 'stdout' and 'stderr' are recognized.
 	# Default: stderr
 	#
-	# debug_file = @DEBUG_FILE@
+	debug_file = @DEBUG_FILE@
 
 	# Re-open debug file  (used in WIN32)
 	#
@@ -78,6 +78,7 @@ app default {
 		# Valid values: leave, reset, unpower.
 		# Default: reset
 		# disconnect_action = unpower;
+		disconnect_action = leave;
 		#
 		# What to do at the end of a transaction (SCardEndTransaction)
 		# Valid values: leave, reset, unpower.
@@ -126,6 +127,7 @@ app default {
 	# NOTE: When "internal" keyword is used, must be last entry
 	#
 	# card_drivers = customcos, internal;
+	card_drivers = PIV-II, openpgp;
 
 	# Card driver configuration blocks.
 
@@ -522,6 +524,7 @@ app default {
 		# List of the builtin pkcs15 emulators to test
 		# Default: esteid, openpgp, tcos, starcert, itacns, infocamere, postecert, actalis, atrust-acos, gemsafeGPK, gemsafeV1, tccardos, PIV-II;
 		# builtin_emulators = openpgp;
+		builtin_emulators = PIV-II, openpgp;
 
 		# additional settings per driver
 		#
