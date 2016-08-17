@@ -736,7 +736,7 @@ app tokend {
 		# The tokend with the highest score shall be used.
 		# Default: 300
 		#
-		# score = 10;
+		score = 1000;
 	}
 }
 
