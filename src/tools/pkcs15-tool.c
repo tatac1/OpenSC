@@ -18,22 +18,26 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
+#include <stdio.h>
+#include <string.h>
+
 #include "config.h"
 
 #define _XOPEN_SOURCE 500
 #include <assert.h>
 #include <ctype.h>
+
 #ifdef _WIN32
 #ifdef __MINGW32__
 // work around for https://sourceforge.net/p/mingw-w64/bugs/476/
 #include <windows.h>
-#endif
+#endif /* __MINGW32__ */
 #include <shellapi.h>
 #include <tchar.h>
 #else
 #include <ftw.h>
-#endif
-#include <stdio.h>
+#endif /* _WIN32 */
 
 #ifdef ENABLE_OPENSSL
 #if defined(HAVE_INTTYPES_H)
@@ -44,10 +48,11 @@
 typedef unsigned __int32 uint32_t;
 #else
 #warning no uint32_t type available, please contact opensc-devel@opensc-project.org
-#endif
+#endif /* HAVE_INTTYPES_H */
 #include <openssl/bn.h>
 #include <openssl/crypto.h>
-#endif
+#endif /* ENABLE_OPENSSL */
+
 #include <limits.h>
 
 #include "libopensc/pkcs15.h"
