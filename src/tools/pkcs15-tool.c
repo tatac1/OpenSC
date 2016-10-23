@@ -21,12 +21,15 @@
 
 #include "config.h"
 
+#if !defined(__APPLE__)
+#define _XOPEN_SOURCE 500
+#endif /* __APPLE__ current MacOS */
+
 #include <stdio.h>
 #if defined(HAVE_STRING_H)
 #include <string.h>
 #endif /* HAVE_STRING_H */
 
-#define _XOPEN_SOURCE 500
 #include <assert.h>
 #include <ctype.h>
 
