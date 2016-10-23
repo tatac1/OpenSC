@@ -19,10 +19,12 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <stdio.h>
-#include <string.h>
-
 #include "config.h"
+
+#include <stdio.h>
+#if defined(HAVE_STRING_H)
+#include <string.h>
+#endif /* HAVE_STRING_H */
 
 #define _XOPEN_SOURCE 500
 #include <assert.h>
